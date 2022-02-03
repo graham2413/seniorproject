@@ -1,24 +1,38 @@
-body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    background-color: #3352de;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #3352de;
 }
-.central-box{
-    text-align: center;
-    position: relative;
-    background-color: white;
-    border-radius: 20px;
-    padding: 10px;
+.central-box {
+  text-align: center;
+  position: relative;
+  background-color: white;
+  border-radius: 20px;
+  padding: 10px;
 }
-.signintext{
-color: #423e32;
+.signintext {
+  color: #423e32;
+  font-size: 20px;
 }
-.user-pass{
-    margin-top: 5px;
-    padding: 0px 15px 0px 5px;
-    background-color:gray;
-    display: inline-block;
-    font-size: 15px;
+.user-pass {
+  margin-top: 5px;
+  padding: 0px 15px 0px 5px;
+  background-color: gray;
+  display: inline-block;
+  font-size: 15px;
+}
+.signintopage-registerintopage-buttons {
+  border: 2px black groove;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 5px;
+  background-color: lightblue;
+}
+.register-signin-links:visited {
+  color: black;
+}
+.register-signin-links:hover {
+  color: red;
 }
