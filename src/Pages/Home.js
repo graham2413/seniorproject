@@ -1,9 +1,13 @@
 import "../login.css";
+import firebaseApp from "../config";
 
-
-function Login() {
+function Home() {
   return (
-<div>Home Page</div>
+    <div>
+      <h1>Home Page</h1>
+
+      <button onClick={() => firebaseApp.auth().signOut()}>Sign Out</button>
+    </div>
   );
 }
-export default Login;
+export default Home;

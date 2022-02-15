@@ -1,20 +1,29 @@
 import "../login.css";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router";
 
 function Login() {
   return (
     <div className="central-box">
       <h1 className="welcome">Welcome to Teacher Insight!</h1>
       <h1 className="signintext">SIGN IN TO YOUR ACCOUNT</h1>
-      <div className="user-pass">
-        <h2>email@email.com</h2>
+      <div>
+        <input
+          name="email"
+          type="email"
+          placeholder="olemiss.email@email.com"
+        />
       </div>
       <br></br>
-      <div className="user-pass">
-        <h2>password123</h2>
+      <div>
+        <input
+          name="password"
+          type="password"
+          placeholder="password123"
+        />
       </div>
       <div>
-        <h2 className="signintopage-registerintopage-buttons">Sign In</h2>
+      <button className="signintopage-registerintopage-buttons" onClick={useParams}>Sign In</button>
       </div>
       <div>
         <Link to="/Register" className="register-signin-links">
