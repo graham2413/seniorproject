@@ -4,17 +4,17 @@ import { getAuth,onAuthStateChanged } from "firebase/auth";
 import {getFirestore} from 'firebase/firestore';
 
 const firebaseApp = initializeApp({
-  apiKey: "AIzaSyAdSVRmTB2OTBsNWUTCZD8cdAHbn7ZNVag",
-  authDomain: "teacher-insight.firebaseapp.com",
-  projectId: "teacher-insight",
-  storageBucket: "teacher-insight.appspot.com",
-  messagingSenderId: "368953510148",
-  appId: "1:368953510148:web:949025c16b7e228d772851",
-  measurementId: "G-98MD28KEDH"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
 });
 
 // Initialize Firebase
 const db = getFirestore(firebaseApp);
 const auth = getAuth(firebaseApp);
 
-export default firebaseApp;
+export default db;

@@ -9,6 +9,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import DayTimePicker from '@mooncake-dev/react-day-time-picker';
 import styled from 'styled-components';
+import db from "./config"
+
 const Container = styled.div
   `width: 475px;
   margin: 1em auto;
@@ -24,10 +26,16 @@ const Container = styled.div
   }`
 ;
 function App() {
+  const handleScheduled = dateTime => {
+    console.log('Scheduled booking: ', dateTime);
+    var test = db.collection('Users').collection('book')
+    test.set({
 
+    })
+  };
   return( 
     <Container>
-  <DayTimePicker timeSlotSizeMinutes={15} />
+  <DayTimePicker timeSlotSizeMinutes={15} onConfirm={handleScheduled}/>
   </Container>
   
   );
