@@ -1,3 +1,4 @@
+//Below is my office hours input information component
 import React, { useState, useEffect } from 'react';
 import firebase from "./config";
 
@@ -19,12 +20,28 @@ function Home() {
 
  const dataHandler = (event) => {
     event.preventDefault();
-    // console.log("Info as follows:",form)    
+    console.log("Info as follows:",form)    
 
-    // for(var i=0; i<form.length;i++){
-    //   users.Teachers.testteacher.officeHoursAvailability.push(form[i]);
-    // }
-     console.log(users)
+    var tempAr = [];
+    for(var i=0; i<form.length;i++){
+       if(form[i].dayPicked==="Monday"||"monday"){
+        tempAr.push(1);
+      }
+      else if(form[i].dayPicked==="Tuesday"||"tuesday"){
+        tempAr.push(2);
+      }
+      else if(form[i].dayPicked==="Wednesday"||"wednesday"){
+        tempAr.push(3);
+      }
+      else if(form[i].dayPicked==="Thursday"||"thursday"){
+        tempAr.push(4);
+      }
+      else if(form[i].dayPicked==="Friday"||"friday"){
+        tempAr.push(5);
+      }
+    }
+     console.log(tempAr);
+
     const timeRef = db.ref("Users/Teachers/testteacher/officeHoursAvailability").push();
     const newTimeref = timeRef.push();
     newTimeref.set({
