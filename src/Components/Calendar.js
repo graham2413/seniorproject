@@ -11,7 +11,7 @@ const [selectedDate, setSelectedDate]= useState(setHours(setMinutes(new Date(), 
 
 const isWeekday = (date) => {
   const day = date.getDay();
-  return day !==0 && day !==6  /*&& day== pass the array from App.js through prps to calendar, for loop through the props here to add the days. do similar for times */;
+  return day !==0 && day !==6  /* change to only--> day== pass the array from App.js through prps to calendar, for loop through the props here to add the days. do similar for times */;
 };
 
     return (
