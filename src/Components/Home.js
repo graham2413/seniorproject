@@ -1,13 +1,18 @@
-import "../login.css";
-import firebase from "../config";
+import Nav from "./Nav"
+import "../CSS/index.css"
 
 function Home() {
   return (
-    <div>
-      <h1>Home Page</h1>
 
-      <button onClick={() => firebase.auth().signOut()}>Sign Out</button>
+    <div>
+        <Nav/>
+          <br></br>
+          <div className="homebody">
+          <button>Schedule Office Hours Appointment</button>
+            </div>
+     
     </div>
+
   );
 }
 export default Home;

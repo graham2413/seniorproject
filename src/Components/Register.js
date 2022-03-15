@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { withRouter } from "react-router";
 import firebase from "../config";
 import { Link } from "react-router-dom";
+import "../CSS/login.css"
 
 const Register = ({ history }) => {
   const handleSignUp = useCallback(async event => {
@@ -18,6 +19,7 @@ const Register = ({ history }) => {
   }, [history]);
 
   return (
+    <body className="loginbody">
     <div className="central-box">
       <h1>Sign up</h1>
       <h2 className="signuptext">Students signup below, Teachers and TA's must email for account creation - cgnorri2@go.olemiss.edu</h2>
@@ -38,6 +40,7 @@ const Register = ({ history }) => {
         </Link>
       </div>
     </div>
+    </body>
   );
 };
 

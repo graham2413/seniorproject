@@ -1,0 +1,16 @@
+body {
+background-color: blue;
+}
+.homebody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+  }
+  .central-box {
+    text-align: center;
+    position: relative;
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px;
+  }

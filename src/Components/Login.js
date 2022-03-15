@@ -3,6 +3,7 @@ import { withRouter, Redirect } from "react-router";
 import firebase from "../config";
 import { AuthContext } from "../Auth";
 import { Link } from "react-router-dom";
+import "../CSS/login.css"
 
 const Login = ({ history }) => {
   const handleLogin = useCallback(
@@ -28,6 +29,7 @@ const Login = ({ history }) => {
   }
 
   return (
+    <body className="loginbody">
     <div className="central-box">
       <h1>Welcome to Teacher Insight</h1>
       <h2 className="signintext">Log in below</h2>
@@ -48,6 +50,7 @@ const Login = ({ history }) => {
         </Link>
       </div>
     </div>
+    </body>
   );
 };
 
