@@ -15,7 +15,7 @@ return(
     <ReactBootStrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
     <ReactBootStrap.Navbar.Collapse id="basic-navbar-nav">
       <ReactBootStrap.Nav className="me-auto">
-        <ReactBootStrap.Nav.Link href="#home">Home</ReactBootStrap.Nav.Link>
+        <ReactBootStrap.Nav.Link href="/">Home</ReactBootStrap.Nav.Link>
         <ReactBootStrap.Nav.Link href="#link">My Teachers</ReactBootStrap.Nav.Link>
         <ReactBootStrap.Nav.Link href="#link">Message</ReactBootStrap.Nav.Link>
         <button onClick={() => firebase.auth().signOut()}>Sign Out</button>

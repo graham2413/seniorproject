@@ -7,6 +7,7 @@ import Register from './Components/Register';
 import Login from './Components/Login';
 import { AuthProvider } from './Auth';
 import PrivateRoute from './PrivateRoute';
+import Calendar from './Components/Calendar'
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <PrivateRoute exact path="/" component={Home}/>
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
+          <Route exact path="/officeHours" component={Calendar}/>
       </div>
     </Router>
     </AuthProvider>

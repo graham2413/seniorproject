@@ -86,11 +86,11 @@ const handleRemove=(e,index)=>{
   setForm(prev=>prev.filter((item)=>item!==prev[index]));
 }
 
-const handleSelect=(e,index)=>{
-  e.preventDefault();
+// const handleSelect=(e,index)=>{
+//   e.preventDefault();
 
-  setForm(prev=>prev.filter((item)=>item!==prev[index]));
-}
+//   setForm(prev=>prev.filter((item)=>item!==prev[index]));
+// }
 
 
   return (
