@@ -1,6 +1,6 @@
 //Below is my office hours input information component
-import React, { useState, useEffect } from 'react';
-import firebase from "./config";
+// import React, { useState, useEffect } from 'react';
+// import firebase from "./config";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './Components/Home';
 import Register from './Components/Register';

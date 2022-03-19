@@ -1,0 +1,27 @@
+{
+"Users":{
+        "Teachers":{
+            "testteacher":{
+                    "bookings":{
+
+                    },
+                    "information":{
+
+                    },
+                    "officeHoursAvailability":{
+                            "0":{
+                                "dayPicked": "Monday",
+                                "endTime": "18:30",
+                                "startTime": "16:30"
+                        }
+                }
+            },
+        "Admin":{
+
+        },
+        "Students":{
+
+        }
+}
+}
+}

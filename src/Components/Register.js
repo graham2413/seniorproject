@@ -7,12 +7,32 @@ import "../CSS/login.css"
 const Register = ({ history }) => {
   const handleSignUp = useCallback(async event => {
     event.preventDefault();
-    const { email, password } = event.target.elements;
+
+    const {full_name, email, password } = event.target.elements;
+
+    // below two added
+    const database = firebase.database()
+    const auth = firebase.auth()
+
+   
     try {
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email.value, password.value);
-      history.push("/");
+
+   await auth
+        .createUserWithEmailAndPassword(email.value, password.value)
+      history.push("/")
+
+          // below two added
+          var user = auth.currentUser
+          var database_ref = database.ref()
+
+          var userData = {
+            full_name: full_name.value,
+            email: email.value
+        }          
+          // below until catch added
+          database_ref.child('Users/Students/' + user.uid).set(userData)
+  
+
     } catch (error) {
       alert(error);
     }
@@ -24,6 +44,10 @@ const Register = ({ history }) => {
       <h1>Sign up</h1>
       <h2 className="signuptext">Students signup below, Teachers and TA's must email for account creation - cgnorri2@go.olemiss.edu</h2>
       <form onSubmit={handleSignUp}>
+      <label>
+          <input name="full_name" type="text" placeholder="Full name" />
+        </label>
+        <br></br>    <br></br>
         <label>
           <input name="email" type="email" placeholder="email@email.com" />
         </label>
