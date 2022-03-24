@@ -1,15 +1,20 @@
-import React, { useCallback, useContext } from "react";
+import React, { useEffect, useCallback, useContext, useState} from "react";
 import { withRouter, Redirect } from "react-router";
 import firebase from "../config";
 import { AuthContext } from "../Auth";
 import { Link } from "react-router-dom";
 import "../CSS/login.css"
+import {sendPasswordResetEmail } from "firebase/auth";
 
 const Login = ({ history }) => {
+
+  const [emailforReset, setemailforReset]=useState([]);
+
   const handleLogin = useCallback(
     async event => {
       event.preventDefault();
       const { email, password } = event.target.elements;
+      setemailforReset(email.value);
       try {
         await firebase
           .auth()
@@ -28,6 +33,17 @@ const Login = ({ history }) => {
     return <Redirect to="/" />;
   }
 
+  function resetPassword() { sendPasswordResetEmail(firebase.auth(), emailforReset)
+  .then(() => {
+alert("Password reset email sent!")
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  alert(error);
+  })}
+
+
   return (
     <body className="loginbody">
     <div className="central-box">
@@ -44,6 +60,7 @@ const Login = ({ history }) => {
         <br></br>
         <button className="signintopage-registerintopage-buttons" type="submit">Log in</button>
       </form>
+      <button onClick={resetPassword}>Reset Password</button>
       <div>
        <Link to="/Register" className="register-signin-links">
           I don't have an account. Sign me up!

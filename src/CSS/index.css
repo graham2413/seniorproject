@@ -5,7 +5,7 @@ background-color: blue;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 75vh;
+    height: 65vh;
   }
   .central-box {
     text-align: center;
@@ -14,4 +14,33 @@ background-color: blue;
     border-radius: 20px;
     padding: 10px;
   }
-  
+  .teachersList{
+    color: white;
+    list-style: square;
+    margin-left: 5%;
+    text-decoration: underline;
+  }
+  .appointmentsCSS{
+    margin-left: 8%;
+  }
+  .eachTeach{
+    color: white;
+    list-style: square;
+    margin-left: 8%;
+    display: block;
+    text-decoration: none;
+  }
+  .schedulebutton {
+    background-color: gray;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+  }
+  .welcomeCSS{
+    margin-top: 5%;
+    text-align:center;
+  }

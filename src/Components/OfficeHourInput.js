@@ -1,52 +1,84 @@
 //Below is my office hours input information component
-import React, { useState, useEffect } from 'react';
-import firebase from "./config";
+import React, { useState, useContext} from 'react';
+import firebase from "../config";
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from "../Auth";
+import Nav from './TeachNav';
 
 function OfficeHourInput() {
 
-  const [users, setUsers]=useState([]);
-  const db = firebase.database();
-//All data below
-  useEffect(() => {
+  const history = useHistory();
+  
+  const routeChange = () =>{ 
+    let path = `/`; 
+    history.push(path);
+  }
 
-      db.ref('Users').on("value",(snapshot)=>{
-        const data =  snapshot.val();
-        setUsers(data);
-      })
-  }, []);
+  const { currentUser } = useContext(AuthContext);
+
+  const db = firebase.database();
 
  const [form, setForm]=useState([]);
 
  const dataHandler = (event) => {
     event.preventDefault();
-    console.log("Info as follows:",form)    
-
-    var tempAr = [];
-    for(var i=0; i<form.length;i++){
-       if(form[i].dayPicked==="Monday"||"monday"){
-        tempAr.push(1);
+    console.log("Info as follows:",form)   
+     
+    
+    var tempStr = "";
+    for(var y=0; y<form.length;y++){
+       if(form[y].dayPicked==="Monday"||form[y].dayPicked==="monday"){
+        tempStr+= "1";
       }
-      else if(form[i].dayPicked==="Tuesday"||"tuesday"){
-        tempAr.push(2);
+      else if(form[y].dayPicked==="Tuesday"||form[y].dayPicked==="tuesday"){
+        tempStr+= "2";
       }
-      else if(form[i].dayPicked==="Wednesday"||"wednesday"){
-        tempAr.push(3);
+      else if(form[y].dayPicked==="Wednesday"||form[y].dayPicked==="wednesday"){
+        tempStr+= "3";
       }
-      else if(form[i].dayPicked==="Thursday"||"thursday"){
-        tempAr.push(4);
+      else if(form[y].dayPicked==="Thursday"||form[y].dayPicked==="thursday"){
+        tempStr+= "4";
       }
-      else if(form[i].dayPicked==="Friday"||"friday"){
-        tempAr.push(5);
+      else if(form[y].dayPicked==="Friday"||form[y].dayPicked==="friday"){
+        tempStr+= "5";
       }
     }
-     console.log(tempAr);
+
+    console.log(tempStr);
+   var tempAr= Array.from(tempStr);
+   var uniqueAr = [...new Set(tempAr)];
+   var finalString = uniqueAr.toString();
+   console.log(finalString);
+
+   //push finalString to db below, then check the db value of the pushed string in
+   // the calendar script to include correct  days
+   const dayRef = db.ref("Users/Teachers/" + currentUser.uid + "/daysToInclude");
+   const newDayRef = dayRef;
+   try{
+    newDayRef.set({
+     dayString:finalString
+   })
+   alert("Days Updated!")
+ }catch(error){alert(error)}
+
 
     const timeRef = db.ref("Users/Teachers/testteacher/officeHoursAvailability");
     const newTimeref = timeRef;
+    try{
     newTimeref.set({
       form
     })
+    alert("Office Hours Updated!")
+  }catch(error){alert(error)}
 
+    // timeslot would go here when works
+    // const timeSlotLength = db.ref("Users/Teachers/testteacher");
+    // const newTimeLength = timeSlotLength;
+    // newTimeLength.set({
+    //   timeSlotLength:10
+    // })
+
+    routeChange();
   }
   
   function handleAddSlot(e){
@@ -57,7 +89,6 @@ function OfficeHourInput() {
     };
 
   setForm(prev=>[...prev,inputState])
-
 };
 const onChange=(index,event)=>{
 
@@ -74,7 +105,6 @@ return{
 ...item,
 [event.target.name]:event.target.value,
 }
-
   });
 
 });
@@ -86,20 +116,17 @@ const handleRemove=(e,index)=>{
   setForm(prev=>prev.filter((item)=>item!==prev[index]));
 }
 
-// const handleSelect=(e,index)=>{
-//   e.preventDefault();
-
-//   setForm(prev=>prev.filter((item)=>item!==prev[index]));
-// }
-
 
   return (
 <div>
+  <Nav/>
+  <br></br>
+      {/* <h1>First input desired length per appointment in minutes</h1> */}
       <h1>Enter available times for the following days</h1>
       <h2>Format entry as follows -- Start time: 12:30  End Time: 16:00 (Military Time)</h2>
   
 <form onSubmit={dataHandler}>
-  
+
 <button onClick={handleAddSlot}>Add time slot</button>   <br></br>  <br></br>
 {
   form.map((item,index)=>(
@@ -140,10 +167,12 @@ const handleRemove=(e,index)=>{
     </div>
 
   ))}
+
   <br></br>
   <input type="submit" />
 
 </form>
+
 
 </div>
   );

@@ -8,7 +8,10 @@ import Login from './Components/Login';
 import { AuthProvider } from './Auth';
 import PrivateRoute from './PrivateRoute';
 import Calendar from './Components/Calendar'
-
+import OfficeHourInput from './Components/OfficeHourInput';
+import TeachersList from './Components/TeachersList';
+import TeacherProfile from "./Components/TeacherProfile"
+import Appointments from "./Components/Appointments"
 
 function App() {
 
@@ -20,6 +23,11 @@ function App() {
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
           <Route exact path="/officeHours" component={Calendar}/>
+          <Route exact path="/officeHoursInput" component={OfficeHourInput}/>
+          <Route exact path="/teachersList" component={TeachersList}/>
+          <Route exact path="/teacherProfile" component={TeacherProfile}/>
+          <Route exact path="/appointments" component={Appointments}/>
+
       </div>
     </Router>
     </AuthProvider>
