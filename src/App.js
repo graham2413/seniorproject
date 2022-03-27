@@ -27,7 +27,6 @@ function App() {
           <Route exact path="/teachersList" component={TeachersList}/>
           <Route exact path="/teacherProfile" component={TeacherProfile}/>
           <Route exact path="/appointments" component={Appointments}/>
-
       </div>
     </Router>
     </AuthProvider>

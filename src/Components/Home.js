@@ -3,7 +3,11 @@ import "../CSS/index.css"
 import { useHistory } from 'react-router-dom';
 import firebase from "../config";
 import { getDatabase, ref, child, get } from "firebase/database";
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
+import { AuthContext } from "../Auth";
+import TeachNav from "./TeachNav";
+import StudentNav from "./StudentNav";
+
 
 
 function Home() {
@@ -11,17 +15,34 @@ function Home() {
   const history = useHistory();
   const dbRef = ref(getDatabase());
 
-  const [teacherName, setTeacherName]=useState([]);
+  const [teacherName, setTeacherName]=useState(null);
+  const { currentUser } = useContext(AuthContext);
 
+  const [userType,setUserType]=useState(null);
   
   const routeChange = () =>{ 
     let path = `/officeHours`; 
     history.push(path);
-    
+  }
+  const routeChangeTemp = () =>{ 
+    let path = `/officeHoursInput`; 
+    history.push(path);
   }
 
   useEffect(() => {
-    get(child(dbRef, `Users/Teachers/` + firebase.auth().currentUser.uid + "/fullName")).then((snapshot) => {
+    get(child(dbRef, `Users/` + currentUser.uid + "/type")).then((snapshot) => {
+      if (snapshot.exists()) {
+        setUserType(snapshot.val());
+      } else {
+        console.log("No ");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, [])
+    
+  useEffect(() => {
+    get(child(dbRef, `Users/` + currentUser.uid + "/full_name")).then((snapshot) => {
       if (snapshot.exists()) {
         setTeacherName(snapshot.val());
       } else {
@@ -30,18 +51,35 @@ function Home() {
     }).catch((error) => {
       console.error(error);
     });
-  }, [])
+  }, []);
 
 
   return (
 
     <div>
-        <Nav/>
+        {userType === 'teacher'? (
+        <div>
+          <TeachNav />
           <br></br>
-          <h1 className="welcomeCSS">Welcome {teacherName}</h1>
+          <h1 className="welcomeCSS">Welcome to Teacher Home, {teacherName}</h1>
+          <div className="homebody">
+          <button onClick={routeChangeTemp}>Temporary link to office hour input page</button>
+            </div>
+
+
+        </div>
+        ) : (
+          <div>
+          <StudentNav />
+          <br></br>
+          <h1 className="welcomeCSS">Welcome to Student Home, {teacherName}</h1>
           <div className="homebody">
           <button className="schedulebutton" onClick={routeChange}>Schedule Office Hours Appointment</button>
             </div>
+
+
+        </div>
+        )}
      
     </div>
 

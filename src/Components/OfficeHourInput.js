@@ -52,7 +52,7 @@ function OfficeHourInput() {
 
    //push finalString to db below, then check the db value of the pushed string in
    // the calendar script to include correct  days
-   const dayRef = db.ref("Users/Teachers/" + currentUser.uid + "/daysToInclude");
+   const dayRef = db.ref("Users/" + currentUser.uid + "/daysToInclude");
    const newDayRef = dayRef;
    try{
     newDayRef.set({
@@ -62,7 +62,7 @@ function OfficeHourInput() {
  }catch(error){alert(error)}
 
 
-    const timeRef = db.ref("Users/Teachers/testteacher/officeHoursAvailability");
+    const timeRef = db.ref("Users/"+ currentUser.uid + "/officeHoursAvailability");
     const newTimeref = timeRef;
     try{
     newTimeref.set({

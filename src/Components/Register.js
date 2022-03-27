@@ -52,9 +52,10 @@ const Register = ({ history }) => {
 
           var userData = {
             full_name: full_name.value,
-            email: email.value
+            email: email.value,
+            type: "student"
         }          
-          database_ref.child('Users/Students/' + firebase.auth().currentUser.uid).set(userData)
+          database_ref.child('Users/' + firebase.auth().currentUser.uid).set(userData);
 
     } catch (error) {
       alert(error);

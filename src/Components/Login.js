@@ -1,14 +1,17 @@
-import React, { useEffect, useCallback, useContext, useState} from "react";
+import React, { useContext, useCallback, useState} from "react";
 import { withRouter, Redirect } from "react-router";
 import firebase from "../config";
 import { AuthContext } from "../Auth";
 import { Link } from "react-router-dom";
 import "../CSS/login.css"
 import {sendPasswordResetEmail } from "firebase/auth";
+import { getDatabase, ref, child, get } from "firebase/database";
+
 
 const Login = ({ history }) => {
 
   const [emailforReset, setemailforReset]=useState([]);
+  const dbRef = ref(getDatabase());
 
   const handleLogin = useCallback(
     async event => {
@@ -19,7 +22,8 @@ const Login = ({ history }) => {
         await firebase
           .auth()
           .signInWithEmailAndPassword(email.value, password.value);
-        history.push("/");
+          history.push("/");
+        
       } catch (error) {
         alert(error);
       }
@@ -27,11 +31,7 @@ const Login = ({ history }) => {
     [history]
   );
 
-  const { currentUser } = useContext(AuthContext);
 
-  if (currentUser) {
-    return <Redirect to="/" />;
-  }
 
   function resetPassword() { sendPasswordResetEmail(firebase.auth(), emailforReset)
   .then(() => {

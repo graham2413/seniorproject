@@ -2,8 +2,17 @@ import React, { useState,useEffect } from 'react';
 import Nav from './TeachNav';
 import { getDatabase, ref, child, get } from "firebase/database";
 import "../CSS/index.css"
+import {useLocation} from "react-router-dom";
 
+// this will render based on which teacher is selected from the teacherslist component
 function TeachersList() {
+
+
+const location = useLocation();
+
+const {uid}=location.state;
+console.log(uid);
+
 
   const [teachers, setTeachers]=useState({});
 
