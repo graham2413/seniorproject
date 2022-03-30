@@ -47,4 +47,8 @@ background-color: blue;
     border-right: 1px solid #333333;
     border-bottom: 1px solid #333333;
     border-left: 1px solid #CCCCCC;  
+    text-align: center;
+    display: block;
+    margin: auto;
+    width: 75%;
   }

@@ -16,6 +16,7 @@ return(
     <ReactBootStrap.Navbar.Collapse id="basic-navbar-nav">
       <ReactBootStrap.Nav className="me-auto">
         <ReactBootStrap.Nav.Link href="/">Home</ReactBootStrap.Nav.Link>
+        <ReactBootStrap.Nav.Link href="/appointments">My Appointments</ReactBootStrap.Nav.Link>
         <ReactBootStrap.Nav.Link href="/teachers">Search All Users</ReactBootStrap.Nav.Link>
         <button onClick={() => firebase.auth().signOut() && window.location.replace("/login")}>Sign Out</button>
       </ReactBootStrap.Nav>

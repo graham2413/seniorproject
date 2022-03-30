@@ -9,7 +9,6 @@ import TeachNav from "./TeachNav";
 import StudentNav from "./StudentNav";
 
 
-
 function Home() {
   
   const history = useHistory();
@@ -74,7 +73,7 @@ function Home() {
           <br></br>
           <h1 className="welcomeCSS">Welcome to Student Home, {teacherName}</h1>
           <div className="homebody">
-          <a><Link to={`/teachers`} className="appointmentLB">Schedule Office Hours Appointment</Link></a>
+          <Link to={`/teachers`} className="appointmentLB">Schedule Office Hours Appointment</Link>
             </div>
 
 

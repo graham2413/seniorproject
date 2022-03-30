@@ -16,9 +16,6 @@ const {handle} = useParams();
 
 const dbRef = ref(getDatabase());
 
-const { currentUser } = useContext(AuthContext);
-
-
 const history = useHistory();
 
 const routeChange = () =>{ 
@@ -43,12 +40,15 @@ get(child(dbRef, `Users/` + handle + `/full_name`)).then((snapshot) => {
   return(
 
       <div>
-
+      
         <StudentNav/>
-        <h1>{user}</h1>
-        <a><Link to={`/officeHours/${handle}`} className="appointmentLB">Schedule Appointment with {user}</Link></a>
 
+       
+        <h1>{user}'s Profile</h1> 
+        <div className="homebody">
+        <Link to={`/officeHours/${handle}`} className="appointmentLB">Schedule Appointment with {user}</Link>
 
+        </div>
       </div>
 
   );

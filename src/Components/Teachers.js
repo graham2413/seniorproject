@@ -34,10 +34,6 @@ function Teachers() {
 //     // return <p>${key} ${value}</p>
 //   }
 // }
-Object.entries(teachers).map((value, index) => {
-
-console.log(value[0] + "  " + value[1]);
-});
 
 
   return(
@@ -52,7 +48,7 @@ console.log(value[0] + "  " + value[1]);
 
        {Object.entries(teachers).map((value, index) => {
 
-        return <a><Link to={`/teacherProfile/${value[1]}`} className="eachTeach" key={index}>{value[0]}</Link></a>
+        return <Link to={`/teacherProfile/${value[1]}`} className="eachTeach" key={index}>{value[0]}</Link>
         })}
       </ul>
       </div>

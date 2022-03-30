@@ -11,7 +11,7 @@ import Calendar from './Components/Calendar'
 import Teachers from './Components/Teachers';
 import OfficeHoursInput from "./Components/OfficeHourInput"
 import TeacherProfile from "./Components/TeacherProfile"
-
+import Appointments from "./Components/Appointments"
 
 function App() {
 
@@ -26,8 +26,7 @@ function App() {
           <Route exact path="/teachers" component={Teachers}/>
           <Route exact path="/officeHoursInput" component={OfficeHoursInput}/>
           <Route exact path="/teacherProfile/:handle" component={TeacherProfile}/>
-
-
+          <Route exact path="/appointments" component={Appointments}/>
 
       </div>
     </Router>

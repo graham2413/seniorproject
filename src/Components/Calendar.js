@@ -4,15 +4,20 @@ import 'react-datepicker/dist/react-datepicker.css'
 import StudentNav from './StudentNav';
 import '../CSS/calendar.css'
 import firebase from "../config";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { AuthContext } from "../Auth";
 import { getDatabase, ref, child, get } from "firebase/database";
 
 function Calendar() {
 
+  const {handle} = useParams();
+
   const[dayStrFinal, setDayStrFinal] = useState("");
 
+  const[userIDUnique, setUserIDUnique] = useState("");
+
   const db = firebase.database();
+
   const { currentUser } = useContext(AuthContext);
 
   const[ex, setEx] = useState([{time:null,date:null}]);
@@ -24,56 +29,75 @@ function Calendar() {
       date: yes,
       minutes:finalWorks.getMinutes().toString()
     });
-    console.log(temp);
+    // console.log(temp);
     
     setEx(state => [...state, {
       time: finalWorks.getHours().toString(),
       date: yes,
       minutes:finalWorks.getMinutes().toString()
     }]);
-    console.log(ex);
+    // console.log(ex);
   }
-
-
-
-  const dbRef = ref(getDatabase());
-
-  // if booking exists push to excluded dates array
+//111111 test - should add existing bookings to eclude dates array
   useEffect(() => {
-  get(child(dbRef, `Users/`+currentUser.uid + `/bookedTimes`)).then((snapshot) => {
+  var query = firebase.database().ref("Users/" +handle+"/bookedTimes").orderByKey();
+  query.once("value")
+    .then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+
+        if (snapshot.exists()) {
+        var pass = childSnapshot.key;
+
+        // console.log(userUniqueID);//userID here
+        setUserIDUnique(pass);
+
+        var maybe = childSnapshot.val();
+      
+          var finalWorks = new Date(maybe);
+    
+          //console.log(finalWorks.getHours());
+          const today = finalWorks;
+          const yyyy = today.getFullYear();
+          let mm = today.getMonth() + 1; // Months start at 0
+          let dd = today.getDate();
+          
+          if (dd < 10) dd = '0' + dd;
+          if (mm < 10) mm = '0' + mm;
+          
+          const yes = mm + '/' + dd + '/' + yyyy;
+          handleSetEx(finalWorks,yes);
+          
+    
+        } else {
+          console.log("No bookings in db for this teacher");
+        }
+    });
+  });
+}, [])
+  //111111 test
+
+const dbRef = ref(getDatabase());
+  
+
+//checks if student has a booking, will replace their booking
+useEffect(() => {
+  get(child(dbRef, `Users/`+ currentUser.uid + `/bookedTimes/` + handle)).then((snapshot) => {
     if (snapshot.exists()) {
       //make below show up on page as an h1 maybe
-      // console.log("Warning, you already have an appointment booked for: "+snapshot.val().booking + " , if you create a new appointment your previous slot will be deleted");
-      var maybe = snapshot.val().booking;
-      var finalWorks = new Date(maybe);
-
-
-      //console.log(finalWorks.getHours());
-      const today = finalWorks;
-      const yyyy = today.getFullYear();
-      let mm = today.getMonth() + 1; // Months start at 0
-      let dd = today.getDate();
-      
-      if (dd < 10) dd = '0' + dd;
-      if (mm < 10) mm = '0' + mm;
-      
-      const yes = mm + '/' + dd + '/' + yyyy;
-      
-      handleSetEx(finalWorks,yes);
-      
+       console.log("Warning, you already have an appointment booked for: "+snapshot.val().booking + " , if you create a new appointment your previous slot will be deleted");
 
     } else {
-      console.log("No booking in db for this user");
+      console.log("No booking in db for this student");
     }
   }).catch((error) => {
     console.error(error);
   });
-  ex.map((val) =>{return console.log(val)});
+  // ex.map((val) =>{return console.log(val)});
 
 }, [])
 
   // determines which days to render available
-  get(child(dbRef, `Users/` + currentUser.uid+ `/daysToInclude`)).then((snapshot) => {
+  get(child(dbRef, `Users/` + handle + `/daysToInclude`)).then((snapshot) => {
     if (snapshot.exists()) {
       var tryMe = snapshot.val().dayString;
       setDayStrFinal(tryMe);
@@ -138,8 +162,10 @@ const isWeekday = (date) => {
 const handleSubmit = (event) => {
   event.preventDefault();  
 
-  const timeRef = db.ref("Users/" + currentUser.uid + "/bookedTimes");
+  const timeRef = db.ref("Users/" + currentUser.uid + "/bookedTimes/" + handle);
  
+  const teacherRef = db.ref("Users/" + handle + "/bookedTimes");
+
   try{
 
      var booking = String(value);
@@ -148,11 +174,20 @@ const handleSubmit = (event) => {
      try{
        const newTimeref = timeRef;
       newTimeref.set({
-        booking
+        booking:booking
       })}
       catch (error) {
         alert(error);
-      }      
+      }  
+      
+      try{
+        const newTeach = teacherRef;
+        newTeach.set({
+          [currentUser.uid]:booking
+       })}
+       catch (error) {
+         alert(error);
+       }  
 
     alert("Confirmed booking for: " + value);
     routeChangeOff();
@@ -163,7 +198,6 @@ const handleSubmit = (event) => {
 };
 //value of selected date
   const [value, setValue] = useState(new Date());
-
 
   return (
     <div>
@@ -178,7 +212,7 @@ const handleSubmit = (event) => {
       maxTime={new Date(new Date().setHours(17, 0, 0))}
       excludeTimes={ex.map((exclude) => {
         const excDate = new Date(exclude.date);
-        console.log(excDate+ " time follows: " + exclude.time);
+        // console.log(excDate+ " time follows: " + exclude.time);
         if(
           value &&
           excDate.getDate() === value.getDate() &&
@@ -209,7 +243,7 @@ const handleSubmit = (event) => {
        </div>
        </form>
        {/* {ex.map((element)=>{
-         return <p>{element.date}</p>
+         return <p>{element.date} {element.time} {element.minutes}</p>
        })} */}
       </div>
       </div>
