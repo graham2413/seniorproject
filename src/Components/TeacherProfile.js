@@ -1,48 +1,56 @@
-import React, { useState,useEffect } from 'react';
-import Nav from './TeachNav';
+import React, {useContext, useState,useEffect } from 'react';
+import StudentNav from './StudentNav';
+import {useParams,Link} from "react-router-dom"
 import { getDatabase, ref, child, get } from "firebase/database";
-import "../CSS/index.css"
-import {useLocation} from "react-router-dom";
+import { AuthContext } from "../Auth";
+import { useHistory } from 'react-router-dom';
+import '../CSS/index.css'
 
-// this will render based on which teacher is selected from the teacherslist component
-function TeachersList() {
+///Purpose is for students to be able to see all teachers to choose from
+
+function TeacherProfile() {
+
+const [user,setUser] =useState(null);
+
+const {handle} = useParams();
+
+const dbRef = ref(getDatabase());
+
+const { currentUser } = useContext(AuthContext);
 
 
-const location = useLocation();
+const history = useHistory();
 
-const {uid}=location.state;
-console.log(uid);
+const routeChange = () =>{ 
+  let path = `/officeHours`; 
+  history.push(path);
+}
 
 
-  const [teachers, setTeachers]=useState({});
+get(child(dbRef, `Users/` + handle + `/full_name`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    var tryMe = snapshot.val();
+    setUser(tryMe);
 
-  const dbRef = ref(getDatabase());
-  
-  useEffect(() => {
-  get(child(dbRef, `Users/`)).then((snapshot) => {
-    if (snapshot.exists()) {
-        setTeachers(snapshot.val().Teachers);
-  
-    } else {
-      console.log("No teachers exist");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
-}, [])
+  } else {
+    console.log("No name exists");
+  }
+}).catch((error) => {
+  console.error(error);
+});
 
-    
+
   return(
 
       <div>
 
-        <Nav/>
-        <h1>Teacher Name here</h1>
-        <h2>Info</h2>
-        <h3>Schedule Appointment button here</h3>
+        <StudentNav/>
+        <h1>{user}</h1>
+        <a><Link to={`/officeHours/${handle}`} className="appointmentLB">Schedule Appointment with {user}</Link></a>
+
 
       </div>
 
   );
 };
-export default TeachersList;
+export default TeacherProfile;

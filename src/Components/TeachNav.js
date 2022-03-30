@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Nav(){
+function TeachNav(){
 
   // const history = useHistory();
   
@@ -35,4 +35,4 @@ return(
 );
 
 }
-export default Nav;
+export default TeachNav;

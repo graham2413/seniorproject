@@ -3,7 +3,7 @@ import React, { useState, useContext} from 'react';
 import firebase from "../config";
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from "../Auth";
-import Nav from './TeachNav';
+import TeachNav from './TeachNav';
 
 function OfficeHourInput() {
 
@@ -119,7 +119,7 @@ const handleRemove=(e,index)=>{
 
   return (
 <div>
-  <Nav/>
+  <TeachNav/>
   <br></br>
       {/* <h1>First input desired length per appointment in minutes</h1> */}
       <h1>Enter available times for the following days</h1>

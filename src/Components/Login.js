@@ -1,5 +1,5 @@
 import React, { useContext, useCallback, useState} from "react";
-import { withRouter, Redirect } from "react-router";
+import { withRouter } from "react-router";
 import firebase from "../config";
 import { AuthContext } from "../Auth";
 import { Link } from "react-router-dom";
@@ -32,14 +32,11 @@ const Login = ({ history }) => {
   );
 
 
-
   function resetPassword() { sendPasswordResetEmail(firebase.auth(), emailforReset)
   .then(() => {
 alert("Password reset email sent!")
   })
   .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
   alert(error);
   })}
 
@@ -60,7 +57,7 @@ alert("Password reset email sent!")
         <br></br>
         <button className="signintopage-registerintopage-buttons" type="submit">Log in</button>
       </form>
-      <button onClick={resetPassword}>Reset Password</button>
+      {/* <button onClick={resetPassword}>Reset Password</button> */}
       <div>
        <Link to="/Register" className="register-signin-links">
           I don't have an account. Sign me up!

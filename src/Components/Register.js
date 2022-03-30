@@ -5,63 +5,36 @@ import { Link } from "react-router-dom";
 import "../CSS/login.css"
 
 const Register = ({ history }) => {
-
-    function validate_email(email) {
-    var expression = /^[^@]+@\w+(\.\w+)+\w$/
-      if (expression.test(email) === true) {
-        return true
-      } 
-      else {
-        return false
-      }
-    }
-
-    function validate_password(password) {
-      // Firebase only accepts lengths greater than 6
-      if (password < 6) {
-        return false
-      } else {
-        return true
-      }
-    }
   const handleSignUp = useCallback(async event => {
     event.preventDefault();
 
     const {full_name, email, password } = event.target.elements;
-    validate_email(email.value);
-    validate_password(password.value);
 
     // below two added
     const database = firebase.database()
     const auth = firebase.auth()
 
-    if (validate_email(email.value) === false || validate_password(password.value) === false) {
-      alert('Email or Password is not formatted correctly.')
-      return;
-    } 
-    else{
-      
+   
     try {
-      if(email.value)
 
    await auth
         .createUserWithEmailAndPassword(email.value, password.value)
-      history.push("/")
+         history.push("/")
 
+          var user = auth.currentUser
           var database_ref = database.ref()
 
           var userData = {
             full_name: full_name.value,
             email: email.value,
             type: "student"
-        }          
-          database_ref.child('Users/' + firebase.auth().currentUser.uid).set(userData);
+        }         
+            
+          database_ref.child('Users/' + user.uid).set(userData)  
 
     } catch (error) {
       alert(error);
-      console.log("im here");
     }
-  }
   }, [history]);
 
   return (

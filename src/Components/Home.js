@@ -1,6 +1,6 @@
 import Nav from "./TeachNav"
 import "../CSS/index.css"
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import firebase from "../config";
 import { getDatabase, ref, child, get } from "firebase/database";
 import React, { useState,useEffect,useContext } from 'react';
@@ -74,7 +74,7 @@ function Home() {
           <br></br>
           <h1 className="welcomeCSS">Welcome to Student Home, {teacherName}</h1>
           <div className="homebody">
-          <button className="schedulebutton" onClick={routeChange}>Schedule Office Hours Appointment</button>
+          <a><Link to={`/teachers`} className="appointmentLB">Schedule Office Hours Appointment</Link></a>
             </div>
 
 
