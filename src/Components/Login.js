@@ -10,14 +10,11 @@ import { getDatabase, ref, child, get } from "firebase/database";
 
 const Login = ({ history }) => {
 
-  const [emailforReset, setemailforReset]=useState([]);
-  const dbRef = ref(getDatabase());
-
   const handleLogin = useCallback(
     async event => {
       event.preventDefault();
       const { email, password } = event.target.elements;
-      setemailforReset(email.value);
+   
       try {
         await firebase
           .auth()
@@ -31,14 +28,24 @@ const Login = ({ history }) => {
     [history]
   );
 
+// reset password
+function resetPassword() { 
+  const email = document.getElementById('email').value
 
-  function resetPassword() { sendPasswordResetEmail(firebase.auth(), emailforReset)
+  if(email !== ""){
+  firebase.auth().sendPasswordResetEmail(email)
   .then(() => {
 alert("Password reset email sent!")
   })
   .catch((error) => {
   alert(error);
-  })}
+  console.log("here");
+  })
+}
+else{
+  alert("Please enter your email first, then select \"Reset password\".")
+}
+}
 
 
   return (
@@ -48,7 +55,7 @@ alert("Password reset email sent!")
       <h2 className="signintext">Log in below</h2>
       <form onSubmit={handleLogin}>
         <label> 
-          <input name="email" type="email" placeholder="email@email.com" />
+          <input name="email" id="email" type="email" placeholder="email@email.com" />
         </label>
         <br></br>    <br></br>
         <label>
@@ -57,7 +64,7 @@ alert("Password reset email sent!")
         <br></br>
         <button className="signintopage-registerintopage-buttons" type="submit">Log in</button>
       </form>
-      {/* <button onClick={resetPassword}>Reset Password</button> */}
+      <button onClick={resetPassword}>Reset Password</button>
       <div>
        <Link to="/Register" className="register-signin-links">
           I don't have an account. Sign me up!
