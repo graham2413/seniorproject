@@ -38,7 +38,7 @@ function Calendar() {
     }]);
     // console.log(ex);
   }
-//111111 test - should add existing bookings to eclude dates array
+//add existing bookings to eclude dates array
   useEffect(() => {
   var query = firebase.database().ref("Users/" +handle+"/bookedTimes").orderByKey();
   query.once("value")
@@ -74,11 +74,9 @@ function Calendar() {
     });
   });
 }, [])
-  //111111 test
 
-const dbRef = ref(getDatabase());
   
-
+const dbRef = ref(getDatabase());
 //checks if student has a booking, will replace their booking
 useEffect(() => {
   get(child(dbRef, `Users/`+ currentUser.uid + `/bookedTimes/` + handle)).then((snapshot) => {

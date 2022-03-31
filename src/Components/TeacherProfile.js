@@ -16,13 +16,6 @@ const {handle} = useParams();
 
 const dbRef = ref(getDatabase());
 
-const history = useHistory();
-
-const routeChange = () =>{ 
-  let path = `/officeHours`; 
-  history.push(path);
-}
-
 
 get(child(dbRef, `Users/` + handle + `/full_name`)).then((snapshot) => {
   if (snapshot.exists()) {

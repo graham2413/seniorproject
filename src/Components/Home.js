@@ -19,10 +19,6 @@ function Home() {
 
   const [userType,setUserType]=useState(null);
   
-  const routeChange = () =>{ 
-    let path = `/officeHours`; 
-    history.push(path);
-  }
   const routeChangeTemp = () =>{ 
     let path = `/officeHoursInput`; 
     history.push(path);
@@ -62,7 +58,7 @@ function Home() {
           <br></br>
           <h1 className="welcomeCSS">Welcome to Teacher Home, {teacherName}</h1>
           <div className="homebody">
-          <button onClick={routeChangeTemp}>Temporary link to office hour input page</button>
+          <Link to={`/officeHoursInput`} className="appointmentLB">Change/Set your Office Hours times here</Link>
             </div>
 
 

@@ -52,3 +52,12 @@ background-color: blue;
     margin: auto;
     width: 75%;
   }
+  .apps{
+    margin-left: 5%;
+
+  }
+  .appsdate{
+    margin-left: 10%;
+    font-size: 15px;
+    color: gray;
+  }
