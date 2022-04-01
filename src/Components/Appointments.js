@@ -117,6 +117,16 @@ function Appointments() {
     
         }, [])
 
+        function deleteForTeachers(){
+          
+          //call below to refresh page after deletion
+          //window.location.reload(false);
+        }
+
+        function deleteForStudents(){
+          
+        }
+
 
   return(
     <div>
@@ -126,7 +136,7 @@ function Appointments() {
                 <br></br>
                 <h1 className="teachersList">My Appointments</h1>
                 {teacherAppointments.map((element,index)=>{
-               return <div><h2 className="apps">{index+1}. {element.studentName}</h2>   <h3 className="appsdate">{element.appointmentDate}</h3></div>
+               return <div><h2 className="apps">{index+1}. {element.studentName}</h2>   <h3 className="appsdate">{element.appointmentDate}</h3>  <button className="deleteappButton" onClick={deleteForTeachers}>Delete Appointment</button>  </div>
                 
                        })}
           </div>

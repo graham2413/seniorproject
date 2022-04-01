@@ -61,3 +61,7 @@ background-color: blue;
     font-size: 15px;
     color: gray;
   }
+  .deleteappButton{
+    margin-left: 10%;
+    font-size: 15px;
+  }

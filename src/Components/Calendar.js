@@ -22,6 +22,7 @@ function Calendar() {
 
   const[ex, setEx] = useState([{time:null,date:null}]);
 
+
   const handleSetEx=(finalWorks,yes)=>{
     let temp = [...ex];
     temp.push({
@@ -47,14 +48,15 @@ function Calendar() {
 
         if (snapshot.exists()) {
         var pass = childSnapshot.key;
+        
 
         // console.log(userUniqueID);//userID here
         setUserIDUnique(pass);
 
-        var maybe = childSnapshot.val();
-      
+        var maybe = childSnapshot.val().booking;
+     
           var finalWorks = new Date(maybe);
-    
+        
           //console.log(finalWorks.getHours());
           const today = finalWorks;
           const yyyy = today.getFullYear();
@@ -65,6 +67,7 @@ function Calendar() {
           if (mm < 10) mm = '0' + mm;
           
           const yes = mm + '/' + dd + '/' + yyyy;
+      
           handleSetEx(finalWorks,yes);
           
     
@@ -164,6 +167,7 @@ const handleSubmit = (event) => {
  
   const teacherRef = db.ref("Users/" + handle + "/bookedTimes");
 
+
   try{
 
      var booking = String(value);
@@ -179,10 +183,17 @@ const handleSubmit = (event) => {
       }  
       
       try{
-        const newTeach = teacherRef;
-        newTeach.set({
-          [currentUser.uid]:booking
-       })}
+      
+    var postData = {
+      booking: booking
+ 
+    };
+
+    var newPostKey = db.ref("Users/" + handle).child(currentUser.uid).key;
+    var updates = {};
+    updates["Users/" + handle+'/bookedTimes/' + newPostKey] = postData;
+   firebase.database().ref().update(updates);
+  }
        catch (error) {
          alert(error);
        }  
