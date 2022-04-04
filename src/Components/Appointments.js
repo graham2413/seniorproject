@@ -32,17 +32,19 @@ function Appointments() {
     // console.log(studentAppointments);
   }
 
-  const handleTeach=(here,there)=>{
+  const handleTeach=(here,there,studentUID)=>{
     let temp = [...teacherAppointments];
     temp.push({
       studentName:here,
-      appointmentDate:there
+      appointmentDate:there,
+      studentIDNUM: studentUID
     });
 
     
     setTeacherAppointments(state => [...state, {
       studentName:here,
-      appointmentDate:there
+      appointmentDate:there,
+      studentIDNUM: studentUID
     }]);
     // console.log(teacherAppointments);
   }
@@ -100,8 +102,8 @@ function Appointments() {
                 var studentID = childSnapshot.key;
                 // console.log(teachersID);
           
-                var bookingTimeForCertainTeach = childSnapshot.val();
-                  console.log(bookingTimeForCertainTeach);
+                var bookingTimeForCertainTeach = childSnapshot.val().booking;
+                  // console.log(bookingTimeForCertainTeach);
     
                 var tryer = firebase.database().ref("Users/" + studentID).orderByKey();
                 tryer.once("value")
@@ -109,24 +111,30 @@ function Appointments() {
     
                     //  console.log(snapshot.val().full_name);
 
-                    handleTeach(snapshot.val().full_name,bookingTimeForCertainTeach)
+                    handleTeach(snapshot.val().full_name,bookingTimeForCertainTeach,studentID)
                   })
-    
             });
           });
     
         }, [])
 
-        function deleteForTeachers(){
-          
+        function deleteForTeachers(studentID,studentName){
+          console.log(studentID);
+              
+            //delete from teachers bookings
+            try{
+             firebase.database().ref("Users/"+ currentUser.uid + "/bookedTimes/" + studentID).remove();
+            
+             //delete from students bookings
+              firebase.database().ref("Users/"+ studentID + "/bookedTimes/" + currentUser.uid).remove();
+            alert("Successfully removed " + studentName +"'s booking") 
+            }catch(error){console.log("here is error:" + error)}
+              
+
+
           //call below to refresh page after deletion
-          //window.location.reload(false);
+          window.location.reload(false);
         }
-
-        function deleteForStudents(){
-          
-        }
-
 
   return(
     <div>
@@ -136,8 +144,7 @@ function Appointments() {
                 <br></br>
                 <h1 className="teachersList">My Appointments</h1>
                 {teacherAppointments.map((element,index)=>{
-               return <div><h2 className="apps">{index+1}. {element.studentName}</h2>   <h3 className="appsdate">{element.appointmentDate}</h3>  <button className="deleteappButton" onClick={deleteForTeachers}>Delete Appointment</button>  </div>
-                
+               return <div className="AppointmentBlock"><h2 className="apps">{index+1}. {element.studentName}</h2>   <h3 className="appsdate">{element.appointmentDate}</h3>  <button className="deleteappButton" onClick={() => deleteForTeachers(element.studentIDNUM,element.studentName)}>Cancel Appointment</button> </div>
                        })}
           </div>
         ) : (
@@ -146,8 +153,7 @@ function Appointments() {
                 <br></br>
                 <h1 className="teachersList">My Appointments</h1>
                {studentAppointments.map((element,index)=>{
-               return <div><h2 className="apps">{index+1}. {element.teachName}</h2>   <h3 className="appsdate">{element.appointmentDate}</h3></div>
-                
+               return <div className="AppointmentBlock"><h2 className="apps">{index+1}. {element.teachName}</h2>   <h3 className="appsdate">{element.appointmentDate}</h3></div>
                        })}
                      
           </div>
@@ -157,6 +163,4 @@ function Appointments() {
     
   );
 };
-
-
 export default Appointments;

@@ -65,3 +65,11 @@ background-color: blue;
     margin-left: 10%;
     font-size: 15px;
   }
+  .AppointmentBlock{
+    width: 50%;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 0 0 15px 20px;
+    border: solid 4px;
+  }

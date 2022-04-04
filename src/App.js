@@ -22,11 +22,11 @@ function App() {
           <PrivateRoute exact path="/" component={Home}/>
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
-          <Route exact path="/officeHours/:handle" component={Calendar}/>
-          <Route exact path="/teachers" component={Teachers}/>
-          <Route exact path="/officeHoursInput" component={OfficeHoursInput}/>
-          <Route exact path="/teacherProfile/:handle" component={TeacherProfile}/>
-          <Route exact path="/appointments" component={Appointments}/>
+          <PrivateRoute exact path="/officeHours/:handle" component={Calendar}/>
+          <PrivateRoute exact path="/teachers" component={Teachers}/>
+          <PrivateRoute exact path="/officeHoursInput" component={OfficeHoursInput}/>
+          <PrivateRoute exact path="/teacherProfile/:handle" component={TeacherProfile}/>
+          <PrivateRoute exact path="/appointments" component={Appointments}/>
 
       </div>
     </Router>

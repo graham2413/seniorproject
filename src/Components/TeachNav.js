@@ -2,18 +2,11 @@ import React from 'react';
 import * as ReactBootStrap from 'react-bootstrap';
 import firebase from "../config";
 import "../CSS/index.css";
-import { useHistory } from 'react-router-dom';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 function TeachNav(){
 
-  // const history = useHistory();
-  
-  // const routeChange = () =>{ 
-  //   let path = `/login`; 
-  //   history.push(path);
-  // }
 
 return(
   <div>
@@ -25,7 +18,8 @@ return(
       <ReactBootStrap.Nav className="me-auto">
         <ReactBootStrap.Nav.Link href="/">Home</ReactBootStrap.Nav.Link>
         <ReactBootStrap.Nav.Link href="/appointments">My Appointments</ReactBootStrap.Nav.Link>
-        <button onClick={() => firebase.auth().signOut().catch((err) => console.log(err)) &&console.log("logged out")/*&& routeChange()*/}>Sign Out</button>
+        <ReactBootStrap.Nav.Link href="/officeHoursInput">My Office Hours</ReactBootStrap.Nav.Link>
+        <button onClick={() => firebase.auth().signOut().catch((err) => console.log(err)) &&console.log("logged out")}>Sign Out</button>
       </ReactBootStrap.Nav>
     </ReactBootStrap.Navbar.Collapse>
   </ReactBootStrap.Container>
