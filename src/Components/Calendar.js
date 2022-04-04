@@ -16,6 +16,14 @@ function Calendar() {
 
   const[userIDUnique, setUserIDUnique] = useState("");
 
+  const[startHour, setStartHour] = useState("");
+  const[startMin, setStartMin] = useState("");
+
+  const[endHour, setEndHour] = useState("");
+  const[endMin, setEndMin] = useState("");
+
+  const[timeSlot, setTimeSlot] = useState("");
+
   const db = firebase.database();
 
   const { currentUser } = useContext(AuthContext);
@@ -98,7 +106,7 @@ useEffect(() => {
 }, [])
 
   // determines which days to render available
-  get(child(dbRef, `Users/` + handle + `/daysToInclude`)).then((snapshot) => {
+  get(child(dbRef, `Users/` + handle + `/officeHoursInfo/daysToInclude`)).then((snapshot) => {
     if (snapshot.exists()) {
       var tryMe = snapshot.val().dayString;
       setDayStrFinal(tryMe);
@@ -109,7 +117,43 @@ useEffect(() => {
   }).catch((error) => {
     console.error(error);
   });
+
+
+  // determines which days to render available
+  get(child(dbRef, `Users/` + handle + `/officeHoursInfo/timeSlotLength`)).then((snapshot) => {
+    if (snapshot.exists()) {
+    setTimeSlot(snapshot.val().length);
+  
+    } else {
+      console.log("No snapshot value exists");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+
+
     
+  // determines which hours to render available
+  get(child(dbRef, `Users/` + handle + `/officeHoursInfo/startAndEndTimes`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      setEndHour(snapshot.val().endHour);
+      setEndMin(snapshot.val().endMin);
+
+      setStartHour(snapshot.val().startHour);
+      setStartMin(snapshot.val().startMin);
+      
+  
+    } else {
+      console.log("No snapshot value exists");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+
+
+
+
+
     const history = useHistory();
     
     const routeChangeOff = () =>{ 
@@ -217,11 +261,10 @@ const handleSubmit = (event) => {
 
     <DatePicker
       filterDate={isWeekday}
-      minTime={new Date(new Date().setHours(8, 0, 0))}
-      maxTime={new Date(new Date().setHours(17, 0, 0))}
+      minTime={new Date(new Date().setHours(startHour, startMin))}
+      maxTime={new Date(new Date().setHours(endHour,endMin))}
       excludeTimes={ex.map((exclude) => {
         const excDate = new Date(exclude.date);
-        // console.log(excDate+ " time follows: " + exclude.time);
         if(
           value &&
           excDate.getDate() === value.getDate() &&
@@ -232,7 +275,7 @@ const handleSubmit = (event) => {
          }
         return null;
       })}
-      timeIntervals={15}
+      timeIntervals={timeSlot}
       showTimeSelect
       dateFormat="M/d/Y HH:mm"
       timeFormat="HH:mm"
@@ -248,7 +291,7 @@ const handleSubmit = (event) => {
       </div>
 
        <div className="buttonsurround">
-         <input type="submit" />
+         <input className="mesubmit" type="submit" />
        </div>
        </form>
        {/* {ex.map((element)=>{

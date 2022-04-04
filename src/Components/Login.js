@@ -1,12 +1,8 @@
-import React, { useContext, useCallback, useState} from "react";
+import React, {useCallback} from "react";
 import { withRouter } from "react-router";
 import firebase from "../config";
-import { AuthContext } from "../Auth";
 import { Link } from "react-router-dom";
 import "../CSS/login.css"
-import {sendPasswordResetEmail } from "firebase/auth";
-import { getDatabase, ref, child, get } from "firebase/database";
-
 
 const Login = ({ history }) => {
 

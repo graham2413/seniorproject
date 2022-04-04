@@ -1,11 +1,15 @@
-//Below is my office hours input information component
-import React, { useState, useContext} from 'react';
-import firebase from "../config";
-import { useHistory } from 'react-router-dom';
-import { AuthContext } from "../Auth";
 import TeachNav from './TeachNav';
+import React, { useState, useContext} from 'react';
+import "../CSS/index.css"
+import { AuthContext } from "../Auth";
+import { useHistory } from 'react-router-dom';
+import firebase from "../config";
 
-function OfficeHourInput() {
+export default function OfficeHourInput() {
+
+
+  const { currentUser } = useContext(AuthContext);
+  const db = firebase.database();
 
   const history = useHistory();
   
@@ -14,167 +18,100 @@ function OfficeHourInput() {
     history.push(path);
   }
 
-  const { currentUser } = useContext(AuthContext);
+  const [startTime,setStartTimeHour]=useState("");
+  const [startTimemin,setStartTimeMin]=useState("");
 
-  const db = firebase.database();
-
- const [form, setForm]=useState([]);
-
- const dataHandler = (event) => {
-    event.preventDefault();
-    console.log("Info as follows:",form)   
-     
-    
-    var tempStr = "";
-    for(var y=0; y<form.length;y++){
-       if(form[y].dayPicked==="Monday"||form[y].dayPicked==="monday"){
-        tempStr+= "1";
-      }
-      else if(form[y].dayPicked==="Tuesday"||form[y].dayPicked==="tuesday"){
-        tempStr+= "2";
-      }
-      else if(form[y].dayPicked==="Wednesday"||form[y].dayPicked==="wednesday"){
-        tempStr+= "3";
-      }
-      else if(form[y].dayPicked==="Thursday"||form[y].dayPicked==="thursday"){
-        tempStr+= "4";
-      }
-      else if(form[y].dayPicked==="Friday"||form[y].dayPicked==="friday"){
-        tempStr+= "5";
-      }
-    }
-
-    console.log(tempStr);
-   var tempAr= Array.from(tempStr);
-   var uniqueAr = [...new Set(tempAr)];
-   var finalString = uniqueAr.toString();
-   console.log(finalString);
-
-   //push finalString to db below, then check the db value of the pushed string in
-   // the calendar script to include correct  days
-   const dayRef = db.ref("Users/" + currentUser.uid + "/daysToInclude");
-   const newDayRef = dayRef;
-   try{
-    newDayRef.set({
-     dayString:finalString
-   })
-   alert("Days Updated!")
- }catch(error){alert(error)}
+  const [endTime,setEndTime]=useState("");
+  const [endTimeMin,setEndTimeMin]=useState("");
 
 
-    const timeRef = db.ref("Users/"+ currentUser.uid + "/officeHoursAvailability");
-    const newTimeref = timeRef;
-    try{
-    newTimeref.set({
-      form
-    })
-    alert("Office Hours Updated!")
-  }catch(error){alert(error)}
+  const [timeslot,setTimeSlot]=useState("");
+  const [monday,setMonday]=useState(false);
+  const [tuesday,setTuesday]=useState(false);
+  const [wednesday,setWednesday]=useState(false);
+  const [thursday,setThursday]=useState(false);
+  const [friday,setFriday]=useState(false);
 
-    // timeslot would go here when works
-    // const timeSlotLength = db.ref("Users/Teachers/testteacher");
-    // const newTimeLength = timeSlotLength;
-    // newTimeLength.set({
-    //   timeSlotLength:10
-    // })
 
-    routeChange();
-  }
-  
-  function handleAddSlot(e){
-    e.preventDefault();
-      const inputState={
-        startTime:"",
-        endTime:"",
-    };
 
-  setForm(prev=>[...prev,inputState])
-};
-const onChange=(index,event)=>{
-
-event.preventDefault();
-event.persist();
-
-setForm(prev=>{
- return prev.map((item,i)=>{
-
-if (i!==index){
-  return item;
-}
-return{
-...item,
-[event.target.name]:event.target.value,
-}
-  });
-
-});
-};
-
-const handleRemove=(e,index)=>{
+function handleSubmit(e) {
   e.preventDefault();
 
-  setForm(prev=>prev.filter((item)=>item!==prev[index]));
-}
+  console.log("Data:" + startTime +" "+ endTime +" "+ monday);
 
+  var tempStr = "";
+  if(monday===true){
+    tempStr+= "1";
+  }
+  if(tuesday===true){
+    tempStr+= "2";
+  }
+  if(wednesday===true){
+    tempStr+= "3";
+  }
+  if(thursday===true){
+    tempStr+= "4";
+  }
+  if(friday===true){
+    tempStr+= "5";
+  }
+// add days to db
+  const dayRef = db.ref("Users/" + currentUser.uid + "/officeHoursInfo/daysToInclude");
+  const newDayRef = dayRef;
+
+  // add timeslot to db
+const tsRef = db.ref("Users/" + currentUser.uid + "/officeHoursInfo/timeSlotLength");
+const newTs = tsRef;
+
+//add start and end time to db
+const startandend = db.ref("Users/" + currentUser.uid + "/officeHoursInfo/startAndEndTimes");
+const newstartandend = startandend;
+
+
+  try{
+   newDayRef.set({
+    dayString:tempStr
+  })
+
+  newTs.set({
+    length:timeslot
+  })
+  newstartandend.set({
+    startHour:startTime,
+    startMin:startTimemin,
+    endHour:endTime,
+    endMin:endTimeMin
+  })
+
+  alert("Days, Timeslot, and Start/End Times are all Updated!")
+  routeChange();
+}catch(error){alert(error)}
+
+}
 
   return (
-<div>
-  <TeachNav/>
-  <br></br>
-      {/* <h1>First input desired length per appointment in minutes</h1> */}
-      <h1>Enter available times for the following days</h1>
-      <h2>Format entry as follows -- Start time: 12:30  End Time: 16:00 (Military Time)</h2>
-  
-<form onSubmit={dataHandler}>
-
-<button onClick={handleAddSlot}>Add time slot</button>   <br></br>  <br></br>
-{
-  form.map((item,index)=>(
- 
- <div key={`item-${index}`}>
-     <br></br> 
     <div>
-        <input 
-        type="text" 
-        name="startTime" 
-        placeholder="Start Time"
-         value={item.start}
-          onChange={(e)=>onChange(index,e)}
-          />
+      <TeachNav/> <br></br>
+
+      <form onSubmit={handleSubmit}>
+    <input type="text" name="startTime" placeholder="Start Time Hour" onChange={(e)=>setStartTimeHour(e.target.value)}/>
+    <input type="text" name="startTimeMin" placeholder="Start Time Minute" onChange={(e)=>setStartTimeMin(e.target.value)}/>
+
+    <input type="text" name="endTime" placeholder="End Time Hour" onChange={(e)=>setEndTime(e.target.value)}/> <br></br>
+    <input type="text" name="endTimeMin" placeholder="End Time Minute" onChange={(e)=>setEndTimeMin(e.target.value)}/>
+
+    <input type="text" name="timeslot" placeholder="Desired Time Slot Length" onChange={(e)=>setTimeSlot(e.target.value)}/> <br></br>
+
+
+    <input type="checkbox" onChange={(e)=>setMonday(e.target.checked)}/> Monday<br></br>
+    <input type="checkbox" onChange={(e)=>setTuesday(e.target.checked)}/> Tuesday<br></br>
+    <input type="checkbox" onChange={(e)=>setWednesday(e.target.checked)}/> Wednesday<br></br>
+    <input type="checkbox" onChange={(e)=>setThursday(e.target.checked)}/> Thursday<br></br>
+    <input type="checkbox" onChange={(e)=>setFriday(e.target.checked)}/> Friday<br></br>
+
+    <button type="submit">Submit</button>
+      </form>
 
     </div>
-    <div>
-        <input 
-        type="text" 
-        name="endTime" 
-        placeholder="End Time"
-         value={item.end}
-          onChange={(e)=>onChange(index,e)}
-          />
-     <div>
-     <input 
-        type="text" 
-        name="dayPicked" 
-        placeholder="Desired Day"
-         value={item.end}
-          onChange={(e)=>onChange(index,e)}
-          />
-    </div>
-    </div>
-    
-
-    <button onClick={(e)=>handleRemove(e,index)}>Remove Time Slot</button>
-    </div>
-
-  ))}
-
-  <br></br>
-  <input type="submit" />
-
-</form>
-
-
-</div>
-  );
+  )
 }
-export default OfficeHourInput;
