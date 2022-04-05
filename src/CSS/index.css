@@ -19,6 +19,7 @@ background-color: blue;
     list-style: square;
     margin-left: 5%;
     text-decoration: underline;
+    margin-top: 15px;
   }
   .appointmentsCSS{
     margin-left: 8%;
@@ -72,4 +73,52 @@ background-color: blue;
     border-radius: 10px;
     margin: 0 0 15px 20px;
     border: solid 4px;
+  }
+  .timecontainer{
+    margin-bottom: 10px; 
+    text-align: center;
+  }
+  .checkcontainer{
+    margin: auto;
+    width: 30%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+  }
+  
+  .submitcont{
+text-align: center;
+  }
+  .formcont{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .anotherformdiv{
+      width: 60%; 
+    background-color: beige;
+    padding: 17px;
+    border-radius: 10px; 
+     margin: auto; 
+     border: solid 4px; 
+     justify-content: center; 
+     align-items: center;  
+  }
+  .searchbar{
+    margin-left: 10%;
+    margin-bottom: 15px;
+    margin-top: 10px;
+  }
+
+
+  @media only screen and (max-width: 765px) {
+    .checkcontainer {
+      width: 40%;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .checkcontainer {
+      width: 55%;
+    }
   }

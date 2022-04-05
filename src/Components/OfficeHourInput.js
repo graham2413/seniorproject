@@ -92,26 +92,35 @@ const newstartandend = startandend;
   return (
     <div>
       <TeachNav/> <br></br>
-
+<div className="formcont">
+    <div className="anotherformdiv">
       <form onSubmit={handleSubmit}>
+        <div className="timecontainer">
     <input type="text" name="startTime" placeholder="Start Time Hour" onChange={(e)=>setStartTimeHour(e.target.value)}/>
     <input type="text" name="startTimeMin" placeholder="Start Time Minute" onChange={(e)=>setStartTimeMin(e.target.value)}/>
-
-    <input type="text" name="endTime" placeholder="End Time Hour" onChange={(e)=>setEndTime(e.target.value)}/> <br></br>
+       </div>
+       <div className="timecontainer">
+    <input type="text" name="endTime" placeholder="End Time Hour" onChange={(e)=>setEndTime(e.target.value)}/> 
     <input type="text" name="endTimeMin" placeholder="End Time Minute" onChange={(e)=>setEndTimeMin(e.target.value)}/>
-
+      </div>
+      <div className="timecontainer">
     <input type="text" name="timeslot" placeholder="Desired Time Slot Length" onChange={(e)=>setTimeSlot(e.target.value)}/> <br></br>
+    </div>
 
-
+    <div className="checkcontainer">
     <input type="checkbox" onChange={(e)=>setMonday(e.target.checked)}/> Monday<br></br>
     <input type="checkbox" onChange={(e)=>setTuesday(e.target.checked)}/> Tuesday<br></br>
     <input type="checkbox" onChange={(e)=>setWednesday(e.target.checked)}/> Wednesday<br></br>
     <input type="checkbox" onChange={(e)=>setThursday(e.target.checked)}/> Thursday<br></br>
     <input type="checkbox" onChange={(e)=>setFriday(e.target.checked)}/> Friday<br></br>
+    </div>
 
+    <div className="submitcont">
     <button type="submit">Submit</button>
-      </form>
+    </div>
 
+      </form>
+      </div></div>
     </div>
   )
 }
