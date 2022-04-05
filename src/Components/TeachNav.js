@@ -2,7 +2,6 @@ import React from 'react';
 import * as ReactBootStrap from 'react-bootstrap';
 import firebase from "../config";
 import "../CSS/index.css";
-import logo from "./TeacherInsight.png"
 
 function TeachNav(){
 
@@ -10,11 +9,7 @@ return(
   <div>
  <ReactBootStrap.Navbar bg="danger" expand="xl">
   <ReactBootStrap.Container>
-    <ReactBootStrap.Navbar.Brand href="/">    <img
-      src={logo}
-      width="80"
-      height="80"
-    />Teacher Insight</ReactBootStrap.Navbar.Brand>
+    <ReactBootStrap.Navbar.Brand href="/">Teacher Insight</ReactBootStrap.Navbar.Brand>
     <ReactBootStrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
     <ReactBootStrap.Navbar.Collapse id="basic-navbar-nav">
       <ReactBootStrap.Nav className="me-auto">
