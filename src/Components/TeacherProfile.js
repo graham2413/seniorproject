@@ -37,7 +37,7 @@ get(child(dbRef, `Users/` + handle + `/full_name`)).then((snapshot) => {
         <StudentNav/>
 
        
-        <h1>{user}'s Profile</h1> 
+        <h1 className="teacherthing">{user}'s Profile</h1> 
         <div className="homebody">
         <Link to={`/officeHours/${handle}`} className="appointmentLB">Schedule Appointment with {user}</Link>
 
