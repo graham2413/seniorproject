@@ -7,7 +7,7 @@ function TeachNav(){
 
 return(
   <div>
- <ReactBootStrap.Navbar bg="danger" expand="xl">
+ <ReactBootStrap.Navbar bg="warning" expand="xl">
   <ReactBootStrap.Container>
     <ReactBootStrap.Navbar.Brand className="blahblah" href="/">Teacher Insight</ReactBootStrap.Navbar.Brand>
     <ReactBootStrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
