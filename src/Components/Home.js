@@ -56,7 +56,7 @@ function Home() {
         <div>
           <TeachNav />
           <br></br>
-          <h1 className="welcomeCSS">Welcome to Teacher Home, {teacherName}</h1>
+        <div className="welcBox"> <h1 className="welcomeCSS">Welcome to Teacher Home, {teacherName}</h1> </div>
           <div className="homebody">
           <Link to={`/officeHoursInput`} className="appointmentLB">Change/Set your Office Hours times here</Link>
             </div>

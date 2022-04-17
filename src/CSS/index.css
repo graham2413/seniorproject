@@ -37,6 +37,18 @@ background-color: blue;
   .welcomeCSS{
     margin-top: 5%;
     text-align:center;
+    background-color: white;
+    width: 50%;
+    padding: 5px;
+    border-radius: 10px;
+    border: solid 4px;
+    display: block;
+    margin: auto;
+    width: 75%;
+  }
+  .welcBox{
+    margin: auto;
+    width: 100%;
   }
   .appointmentLB{
     font: bold 17px Arial;
@@ -121,6 +133,17 @@ text-align: center;
     .checkcontainer {
       width: 55%;
     }
+  }
+
+  @media only screen and (max-width: 425px) {
+    .inputfix {
+    width: 100%;
+    }
+
+    .checkcontainer {
+      width: 80%;
+    }
+
   }
   .teacherthing{
     margin-top: 25px;

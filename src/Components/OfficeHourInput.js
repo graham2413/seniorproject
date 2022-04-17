@@ -96,15 +96,15 @@ const newstartandend = startandend;
     <div className="anotherformdiv">
       <form onSubmit={handleSubmit}>
         <div className="timecontainer">
-    <input type="text" name="startTime" placeholder="Start Time Hour" onChange={(e)=>setStartTimeHour(e.target.value)}/>
-    <input type="text" name="startTimeMin" placeholder="Start Time Minute" onChange={(e)=>setStartTimeMin(e.target.value)}/>
+    <input className="inputfix" type="text" name="startTime" placeholder="Start Time Hour" onChange={(e)=>setStartTimeHour(e.target.value)}/>
+    <input className="inputfix" type="text" name="startTimeMin" placeholder="Start Time Minute" onChange={(e)=>setStartTimeMin(e.target.value)}/>
        </div>
        <div className="timecontainer">
-    <input type="text" name="endTime" placeholder="End Time Hour" onChange={(e)=>setEndTime(e.target.value)}/> 
-    <input type="text" name="endTimeMin" placeholder="End Time Minute" onChange={(e)=>setEndTimeMin(e.target.value)}/>
+    <input className="inputfix" type="text" name="endTime" placeholder="End Time Hour" onChange={(e)=>setEndTime(e.target.value)}/> 
+    <input className="inputfix" type="text" name="endTimeMin" placeholder="End Time Minute" onChange={(e)=>setEndTimeMin(e.target.value)}/>
       </div>
       <div className="timecontainer">
-    <input type="text" name="timeslot" placeholder="Desired Time Slot Length" onChange={(e)=>setTimeSlot(e.target.value)}/> <br></br>
+    <input className="inputfix" type="text" name="timeslot" placeholder="Time Slot Length" onChange={(e)=>setTimeSlot(e.target.value)}/> <br></br>
     </div>
 
     <div className="checkcontainer">

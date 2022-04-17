@@ -234,6 +234,7 @@ const handleSubmit = (event) => {
     };
 
     var newPostKey = db.ref("Users/" + handle).child(currentUser.uid).key;
+    console.log(newPostKey);
     var updates = {};
     updates["Users/" + handle+'/bookedTimes/' + newPostKey] = postData;
    firebase.database().ref().update(updates);
