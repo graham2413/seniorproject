@@ -11,12 +11,13 @@ import '../CSS/index.css'
 function TeacherProfile() {
 
 const [user,setUser] =useState(null);
+const [announcement,setAnnouncement] =useState("");
 
 const {handle} = useParams();
 
 const dbRef = ref(getDatabase());
 
-
+useEffect(() => {
 get(child(dbRef, `Users/` + handle + `/full_name`)).then((snapshot) => {
   if (snapshot.exists()) {
     var tryMe = snapshot.val();
@@ -28,6 +29,21 @@ get(child(dbRef, `Users/` + handle + `/full_name`)).then((snapshot) => {
 }).catch((error) => {
   console.error(error);
 });
+}, [])
+
+
+useEffect(() => {
+  get(child(dbRef, `Users/` + handle + "/announcementsInput")).then((snapshot) => {
+    if (snapshot.exists()) {
+      setAnnouncement(snapshot.val().announcement);
+    } else {
+      console.log("No announcement");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+
+}, [])
 
 
   return(
@@ -38,6 +54,8 @@ get(child(dbRef, `Users/` + handle + `/full_name`)).then((snapshot) => {
 
        
         <h1 className="teacherthing">{user}'s Profile</h1> 
+
+      <div className="announcetext">{announcement}</div>
         <div className="homebody">
         <Link to={`/officeHours/${handle}`} className="appointmentLB">Schedule Appointment with {user}</Link>
 

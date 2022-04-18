@@ -3,7 +3,6 @@ import StudentNav from './StudentNav';
 import { getDatabase, ref, child, get } from "firebase/database";
 import { Link } from "react-router-dom";
 import "../CSS/index.css";
-///Purpose is for students to be able to see all teachers to choose from
 
 function Teachers() {
 

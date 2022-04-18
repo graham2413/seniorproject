@@ -58,8 +58,10 @@ function Home() {
           <br></br>
         <div className="welcBox"> <h1 className="welcomeCSS">Welcome to Teacher Home, {teacherName}</h1> </div>
           <div className="homebody">
-          <Link to={`/officeHoursInput`} className="appointmentLB">Change/Set your Office Hours times here</Link>
-            </div>
+        <div>  <Link to={`/officeHoursInput`} className="appointmentLB">Change/Set your Office Hours times here</Link> </div>      </div> <br></br><br></br>
+          <Link to={`/inputAnnouncements`} className="appointmentLB">Change announcements here</Link>
+
+        
 
 
         </div>

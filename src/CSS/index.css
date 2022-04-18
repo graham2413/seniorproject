@@ -5,7 +5,7 @@ background-color: #3352de;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 65vh;
+    height: 30vh;
   }
   .central-box {
     text-align: center;
@@ -65,6 +65,7 @@ background-color: #3352de;
     margin: auto;
     width: 75%;
   }
+
   .apps{
     margin-left: 5%;
 
@@ -153,4 +154,29 @@ text-align: center;
   .blahblah{
     font-size: 25px;
     font-weight: 700;
+  }
+  .announ{
+    margin-top: 15%;
+    width: 90%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+  }
+  .submitbutttt{
+    text-align: center;
+  }
+  .announcetext{
+    width: 75%;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 10%;
+    border: solid 4px;
+    font-size: 12px;
   }

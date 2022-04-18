@@ -51,12 +51,12 @@ else{
       <h2 className="signintext">Log in below</h2>
       <form onSubmit={handleLogin}>
         <label> 
-          <input name="email" id="email" type="email" placeholder="email@email.com" />
+          <input className="loginp" name="email" id="email" type="email" placeholder="email@email.com" />
         </label>
         <br></br>    <br></br>
         <label>
-          <input name="password" type="password" placeholder="password123" />
-        </label>
+          <input className="loginp" name="password" type="password" placeholder="password123" />
+        </label> 
         <br></br>
         <button className="signintopage-registerintopage-buttons" type="submit">Log in</button>
       </form>

@@ -12,6 +12,7 @@ import Teachers from './Components/Teachers';
 import OfficeHoursInput from "./Components/OfficeHourInput"
 import TeacherProfile from "./Components/TeacherProfile"
 import Appointments from "./Components/Appointments"
+import Announcements from './Components/Announcements';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <PrivateRoute exact path="/officeHoursInput" component={OfficeHoursInput}/>
           <PrivateRoute exact path="/teacherProfile/:handle" component={TeacherProfile}/>
           <PrivateRoute exact path="/appointments" component={Appointments}/>
+          <PrivateRoute exact path="/inputAnnouncements" component={Announcements}/>
 
       </div>
     </Router>
