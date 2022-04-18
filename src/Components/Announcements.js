@@ -22,6 +22,8 @@ export default function Announcements() {
 
     const [announcement,setAnnoucement]=useState("");
 
+    const [currentAnnouncement,setCurrentAnnouncement]=useState("");
+
     
     function handleSubmit(e) {
         e.preventDefault();
@@ -40,6 +42,19 @@ export default function Announcements() {
       }catch(error){alert(error)}
       
       }
+
+      useEffect(() => {
+        get(child(dbRef, `Users/` + currentUser.uid + "/announcementsInput")).then((snapshot) => {
+          if (snapshot.exists()) {
+            setCurrentAnnouncement(snapshot.val().announcement);
+          } else {
+            console.log("No announcements ");
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+  
+      }, [])
     
     
     
@@ -48,6 +63,12 @@ export default function Announcements() {
             <div>
                 <TeacherNav/>
             </div>
+
+        <div className="textertexter">Current Announcements are as follows: <br></br><br></br>
+        {currentAnnouncement}
+        </div>
+
+
             <form onSubmit={handleSubmit}>
         <div className="timecontainer">
     <textarea 
