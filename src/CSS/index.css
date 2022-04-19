@@ -192,3 +192,19 @@ text-align: center;
     border: solid 4px;
     font-size: 12px;
   }
+  .cancAppCont{
+    margin-top: 5%;
+    text-align:center;
+    background-color: white;
+    width: 50%;
+    padding: 5px;
+    border-radius: 10px;
+    border: solid 4px;
+    display: block;
+    margin: auto;
+    width: 75%;
+  }
+  p{
+    font-weight: 600;
+    text-decoration: underline;
+  }

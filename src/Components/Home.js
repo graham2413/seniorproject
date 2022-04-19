@@ -18,10 +18,14 @@ function Home() {
   const { currentUser } = useContext(AuthContext);
 
   const [userType,setUserType]=useState(null);
+  const [canc,setCanc]=useState([null]);
   
-  const routeChangeTemp = () =>{ 
-    let path = `/officeHoursInput`; 
-    history.push(path);
+
+
+  const handleCanc=(val)=>{
+ 
+    setCanc(state => [...state, [val]
+    ]);
   }
 
   useEffect(() => {
@@ -48,6 +52,34 @@ function Home() {
     });
   }, []);
 
+  useEffect(() => {
+    firebase.database().ref(`Users/${currentUser.uid}/canceledSlot`).once('value', function(snapshot){
+            snapshot.forEach(
+                function(ChildSnapshot){
+                // console.log(ChildSnapshot.val());
+                handleCanc(ChildSnapshot.val().update);
+    
+                }
+            );
+        });
+              }, [])
+    
+
+    function cancRender() {
+        
+      if(canc!==null){
+
+       return canc.map((element)=>{
+          if(element!==null){
+            console.log(element);
+            return <li>{element}</li>
+          }
+        })
+      }
+
+    }
+    //  console.log(canc);
+
 
   return (
 
@@ -72,8 +104,18 @@ function Home() {
           <h1 className="welcomeCSS">Welcome to Student Home, {teacherName}</h1>
           <div className="homebody">
           <Link to={`/teachers`} className="appointmentLB">Schedule Office Hours Appointment</Link>
+            <br></br>  <br></br>
+            
+            
+            
             </div>
-
+            <div className="cancAppCont">
+           <p>  A Teacher cancelled appointments below</p>
+            
+            <ol>
+            {cancRender()}
+            </ol>
+            </div>
 
         </div>
         )}

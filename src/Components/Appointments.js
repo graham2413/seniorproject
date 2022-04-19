@@ -12,6 +12,7 @@ function Appointments() {
   const [studentAppointments, setStudentAppointments]=useState([]);
 
   const dbRef = ref(getDatabase());
+  const db = firebase.database();
   const { currentUser } = useContext(AuthContext);
   const [userType,setUserType]=useState(null);
 // below for teachers to set the appointmetns they have
@@ -118,7 +119,7 @@ function Appointments() {
     
         }, [])
 
-        function deleteForTeachers(studentID,studentName){
+        function deleteForTeachers(studentID,studentName,appDate){
           console.log(studentID);
               
             //delete from teachers bookings
@@ -127,7 +128,19 @@ function Appointments() {
             
              //delete from students bookings
               firebase.database().ref("Users/"+ studentID + "/bookedTimes/" + currentUser.uid).remove();
-            alert("Successfully removed " + studentName +"'s booking") 
+            
+              var postData = {
+            update: `Your booking for ${appDate} has been removed`
+           
+              };
+          
+              var newPostKey = db.ref(`Users/${studentID}`).child(`${appDate}`).key;
+              // console.log(newPostKey);
+              var updates = {};
+              updates[`Users/${studentID}/canceledSlot/${newPostKey}`] = postData;
+             firebase.database().ref().update(updates);
+            
+              alert(`Successfully removed ${studentName}'s booking`) 
             }catch(error){console.log("here is error:" + error)}
               
 
@@ -144,7 +157,7 @@ function Appointments() {
                 <br></br>
                 <h1 className="teachersList">My Appointments</h1>
                 {teacherAppointments.map((element,index)=>{
-               return <div className="AppointmentBlock"><h2 className="apps">{index+1}. {element.studentName}</h2>   <h3 className="appsdate">{element.appointmentDate}</h3>  <button className="deleteappButton" onClick={() => deleteForTeachers(element.studentIDNUM,element.studentName)}>Cancel Appointment</button> </div>
+               return <div className="AppointmentBlock"><h2 className="apps">{index+1}. {element.studentName}</h2>   <h3 className="appsdate">{element.appointmentDate}</h3>  <button className="deleteappButton" onClick={() => deleteForTeachers(element.studentIDNUM,element.studentName,element.appointmentDate)}>Cancel Appointment</button> </div>
                        })}
           </div>
         ) : (
