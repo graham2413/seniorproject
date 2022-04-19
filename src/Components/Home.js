@@ -78,8 +78,6 @@ function Home() {
       }
 
     }
-    //  console.log(canc);
-
 
   return (
 
@@ -110,7 +108,7 @@ function Home() {
             
             </div>
             <div className="cancAppCont">
-           <p>  A Teacher cancelled appointments below</p>
+           <p>  If a Teacher cancelled an appointment, it is below</p>
             
             <ol>
             {cancRender()}
