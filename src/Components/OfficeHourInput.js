@@ -96,6 +96,7 @@ const newstartandend = startandend;
     <div className="anotherformdiv">
       <form onSubmit={handleSubmit}>
         <div className="timecontainer">
+          <div className="military">Input times below - use military time</div>
     <input className="inputfix" type="text" name="startTime" placeholder="Start Time Hour" onChange={(e)=>setStartTimeHour(e.target.value)}/>
     <input className="inputfix" type="text" name="startTimeMin" placeholder="Start Time Minute" onChange={(e)=>setStartTimeMin(e.target.value)}/>
        </div>
