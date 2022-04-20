@@ -12,6 +12,7 @@ function TeacherProfile() {
 
 const [user,setUser] =useState(null);
 const [announcement,setAnnouncement] =useState("");
+const [email,setEmail] =useState("");
 
 const {handle} = useParams();
 
@@ -45,6 +46,31 @@ useEffect(() => {
 
 }, [])
 
+useEffect(() => {
+  get(child(dbRef, `Users/` + handle + "/email")).then((snapshot) => {
+    if (snapshot.exists()) {
+      setEmail(snapshot.val());
+    } else {
+      console.log("No announcement");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+
+}, [])
+
+function announFixer() {
+  if(announcement.length===0){
+    console.log("blob");
+    return <div className="announcetext">No announcements</div>
+  }
+  else{
+    console.log("here");
+    return  <div className="announcetext">{announcement}</div>
+  }
+}
+
+
 
   return(
 
@@ -55,7 +81,10 @@ useEffect(() => {
        
         <h1 className="teacherthing">{user}'s Profile</h1> 
 
-      <div className="announcetext">{announcement}</div>
+     {announFixer()}
+
+
+      <div className="announcer"> <u><b>Contact:</b></u> {email}</div>
         <div className="homebody">
         <Link to={`/officeHours/${handle}`} className="appointmentLB">Schedule Appointment with {user}</Link>
 
