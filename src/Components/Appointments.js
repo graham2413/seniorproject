@@ -149,6 +149,25 @@ function Appointments() {
           window.location.reload(false);
         }
 
+        function completeApp(studentID,studentName){
+          console.log(studentID);
+              
+            //delete from teachers bookings
+            try{
+             firebase.database().ref("Users/"+ currentUser.uid + "/bookedTimes/" + studentID).remove();
+            
+             //delete from students bookings
+              firebase.database().ref("Users/"+ studentID + "/bookedTimes/" + currentUser.uid).remove();
+            
+              alert(`Successfully completed ${studentName}'s booking`) 
+            }catch(error){console.log("here is error:" + error)}
+              
+
+
+          //call below to refresh page after deletion
+          window.location.reload(false);
+        }
+
   return(
     <div>
         {userType === 'teacher'? (
@@ -157,7 +176,7 @@ function Appointments() {
                 <br></br>
                 <h1 className="teachersList">My Appointments</h1>
                 {teacherAppointments.map((element,index)=>{
-               return <div className="AppointmentBlock"><h2 className="apps">{index+1}. {element.studentName}</h2>   <h3 className="appsdate">{element.appointmentDate}</h3>  <button className="deleteappButton" onClick={() => deleteForTeachers(element.studentIDNUM,element.studentName,element.appointmentDate)}>Cancel Appointment</button> </div>
+               return <div className="AppointmentBlock"><h2 className="apps">{index+1}. {element.studentName}</h2>   <h3 className="appsdate">{element.appointmentDate}</h3>  <button className="deleteappButton" onClick={() => deleteForTeachers(element.studentIDNUM,element.studentName,element.appointmentDate)}>Cancel Appointment</button><button className="deleteappButton" onClick={() => completeApp(element.studentIDNUM,element.studentName,element.appointmentDate)}>Complete Appointment</button> </div>
                        })}
           </div>
         ) : (

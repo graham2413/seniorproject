@@ -78,6 +78,7 @@ background-color: #3352de;
   .deleteappButton{
     margin-left: 10%;
     font-size: 15px;
+    margin-bottom: 8px;
   }
   .AppointmentBlock{
     width: 50%;
