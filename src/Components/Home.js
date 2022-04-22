@@ -144,7 +144,7 @@ function Home() {
             
             </div>
             <div className="cancAppCont">
-           <p>  If a Teacher cancelled an appointment, it is below</p>
+           <p>  If a Teacher/TA cancelled an appointment, it is below</p>
             
             <ol>
             {cancRender()}
