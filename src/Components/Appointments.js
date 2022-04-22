@@ -130,7 +130,7 @@ function Appointments() {
               firebase.database().ref("Users/"+ studentID + "/bookedTimes/" + currentUser.uid).remove();
             
               var postData = {
-            update: `Your booking for ${appDate} has been removed`
+            update: `${appDate}`
            
               };
           

@@ -69,14 +69,50 @@ function Home() {
         
       if(canc!==null){
 
-       return canc.map((element)=>{
+       return canc.map((element,index)=>{
           if(element!==null){
-            console.log(element);
-            return <li>{element}</li>
+            // console.log(element);
+            return <div><li>Your booking for {element} was cancelled.</li> <button onClick={() => clearNotif(element)}>Clear this notification</button></div>
           }
         })
       }
 
+    }
+
+    function clearNotif(element) {
+
+    
+      firebase.database().ref(`Users/${currentUser.uid}/canceledSlot`).once("value").then(function(snapshot) {
+        snapshot.forEach(function(child) {
+          
+          console.log(child.ref.key);
+          if(child.ref.key===element[0]){
+            try{
+           child.ref.remove();
+             //call below to refresh page after deletion
+           window.location.reload(false);
+          }
+           catch(error){
+             console.log(error);
+           }
+          }
+        })
+      });
+
+    //       firebase.database().ref(`Users/${currentUser.uid}/canceledSlot`).once('value', function(snapshot){
+    //         snapshot.forEach(
+    //             function(ChildSnapshot){
+    //              console.log(ChildSnapshot.val());
+    //             // console.log(ChildSnapshot.val().update);
+
+    //             if(element[0]=== ChildSnapshot.val().update){
+    //               ChildSnapshot.remove();
+    //               console.log("yellow");
+    //             }
+    
+    //             }
+    //         );
+    //     });
     }
 
   return (

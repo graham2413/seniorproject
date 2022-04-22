@@ -216,7 +216,7 @@ text-align: center;
   }
   .announcer{
     text-align: center;
-    width: 45%;
+    width: 60%;
     background-color: white;
     padding: 5px;
     border-radius: 10px;
@@ -224,4 +224,10 @@ text-align: center;
     margin-top: 10%;
     border: solid 4px;
     font-size: 15px;
+  }
+
+  @media only screen and (max-width: 425px) {
+    .announcetext,.announcer{
+      width: 80%;
+    }
   }
