@@ -3,29 +3,36 @@ import StudentNav from './StudentNav';
 import { getDatabase, ref, child, get } from "firebase/database";
 import { Link } from "react-router-dom";
 import "../CSS/index.css";
+import firebase from "../config"
+
 
 function Teachers() {
 
   const [teachers, setTeachers]=useState([]);
   const [searchTerm, setSearchTerm]=useState('');
 
-  const dbRef = ref(getDatabase());
+function teachHand(name, uid) {
 
-  useEffect(() => {
-  get(child(dbRef, `Users/TeachersList`)).then((snapshot) => {
-    if (snapshot.exists()) {
+  setTeachers(prevState => ({
+ 
+        ...prevState,
+        [name]: uid
+   }));
+}
 
-       setTeachers(snapshot.val())
-       
-    }
-   else {
-      console.log("No teachers exist");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
-}, [])
+useEffect(() => {
+  firebase.database().ref('Users').once('value', function(snapshot){
+          snapshot.forEach(
+              function(ChildSnapshot){
 
+      if(ChildSnapshot.val().type=== "teacher"){
+
+         teachHand(ChildSnapshot.val().full_name,ChildSnapshot.val().uid);
+      }
+              }
+          );
+      });
+            }, [])
 
   return(
 
