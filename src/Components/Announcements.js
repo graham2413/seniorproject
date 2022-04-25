@@ -73,6 +73,7 @@ export default function Announcements() {
         <div className="timecontainer">
     <textarea 
     type="textarea" 
+    required
     name="announcement" 
     placeholder="Ex: Office hours have been changed" 
     onChange={(e)=>setAnnoucement(e.target.value)}

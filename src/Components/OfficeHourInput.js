@@ -97,18 +97,18 @@ const newstartandend = startandend;
       <form onSubmit={handleSubmit}>
         <div className="timecontainer">
           <div className="military">Input times below - use military time</div>
-    <input className="inputfix" type="text" name="startTime" placeholder="Start Time Hour" onChange={(e)=>setStartTimeHour(e.target.value)}/>
-    <input className="inputfix" type="text" name="startTimeMin" placeholder="Start Time Minute" onChange={(e)=>setStartTimeMin(e.target.value)}/>
+    <input className="inputfix" required type="text" name="startTime" placeholder="Start Time Hour" onChange={(e)=>setStartTimeHour(e.target.value)}/>
+    <input className="inputfix" required type="text" name="startTimeMin" placeholder="Start Time Minute" onChange={(e)=>setStartTimeMin(e.target.value)}/>
        </div>
        <div className="timecontainer">
-    <input className="inputfix" type="text" name="endTime" placeholder="End Time Hour" onChange={(e)=>setEndTime(e.target.value)}/> 
-    <input className="inputfix" type="text" name="endTimeMin" placeholder="End Time Minute" onChange={(e)=>setEndTimeMin(e.target.value)}/>
+    <input className="inputfix" required type="text" name="endTime" placeholder="End Time Hour" onChange={(e)=>setEndTime(e.target.value)}/> 
+    <input className="inputfix" required type="text" name="endTimeMin" placeholder="End Time Minute" onChange={(e)=>setEndTimeMin(e.target.value)}/>
       </div>
       <div className="timecontainer">
-    <input className="inputfix" type="text" name="timeslot" placeholder="Time Slot Length" onChange={(e)=>setTimeSlot(e.target.value)}/> <br></br>
+    <input className="inputfix" required type="text" name="timeslot" placeholder="Time Slot Length" onChange={(e)=>setTimeSlot(e.target.value)}/> <br></br>
     </div>
 
-    <div className="checkcontainer">
+    <div className="checkcontainer" required>
     <input type="checkbox" onChange={(e)=>setMonday(e.target.checked)}/> Monday<br></br>
     <input type="checkbox" onChange={(e)=>setTuesday(e.target.checked)}/> Tuesday<br></br>
     <input type="checkbox" onChange={(e)=>setWednesday(e.target.checked)}/> Wednesday<br></br>
