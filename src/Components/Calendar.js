@@ -12,6 +12,8 @@ function Calendar() {
 
   const {handle} = useParams();
 
+  const[warning, setWarning] = useState("");
+
   const[dayStrFinal, setDayStrFinal] = useState("");
 
   const[userIDUnique, setUserIDUnique] = useState("");
@@ -93,6 +95,7 @@ useEffect(() => {
   get(child(dbRef, `Users/`+ currentUser.uid + `/bookedTimes/` + handle)).then((snapshot) => {
     if (snapshot.exists()) {
       //make below show up on page as an h1 maybe
+      setWarning(snapshot.val().booking);
        console.log("Warning, you already have an appointment booked for: "+snapshot.val().booking + " , if you create a new appointment your previous slot will be deleted");
 
     } else {
@@ -257,6 +260,9 @@ const handleSubmit = (event) => {
     <div>
     <StudentNav/>
     <div className="App">
+      {warning!==""?(
+     <div className="surrrrrpls">   <h1 className="warningcss">Warning, you already have an appointment booked for: {warning} , if you create a new appointment your previous slot will be deleted</h1></div>
+      ):(<div className="surrrrrpls"> <h1 className="warningcss">Click on the input field below to get started</h1></div>)}
         <form onSubmit={handleSubmit}>
         <div className="ohContainer">
 
@@ -295,9 +301,6 @@ const handleSubmit = (event) => {
          <input className="mesubmit" type="submit" />
        </div>
        </form>
-       {/* {ex.map((element)=>{
-         return <p>{element.date} {element.time} {element.minutes}</p>
-       })} */}
       </div>
       </div>
   );

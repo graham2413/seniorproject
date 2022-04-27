@@ -98,21 +98,6 @@ function Home() {
           }
         })
       });
-
-    //       firebase.database().ref(`Users/${currentUser.uid}/canceledSlot`).once('value', function(snapshot){
-    //         snapshot.forEach(
-    //             function(ChildSnapshot){
-    //              console.log(ChildSnapshot.val());
-    //             // console.log(ChildSnapshot.val().update);
-
-    //             if(element[0]=== ChildSnapshot.val().update){
-    //               ChildSnapshot.remove();
-    //               console.log("yellow");
-    //             }
-    
-    //             }
-    //         );
-    //     });
     }
 
   return (
